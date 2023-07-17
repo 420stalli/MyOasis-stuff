@@ -2,8 +2,9 @@ package com.example.cirrus.repository;
 
 import com.example.cirrus.entity.FruitSeller;
 
-import com.sun.istack.NotNull;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
@@ -16,5 +17,5 @@ public interface FruitSellerRepository extends JpaRepository<FruitSeller,Long> {
 
 
     @Transactional
-    void deleteById(Long fruitSellerId);
+    void deleteById(@NonNull Long fruitSellerId);
 }
