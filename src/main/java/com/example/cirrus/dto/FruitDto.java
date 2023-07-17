@@ -1,7 +1,4 @@
 package com.example.cirrus.dto;
-
-
-import com.example.cirrus.entity.FruitSeller;
 import lombok.Data;
 
 @Data

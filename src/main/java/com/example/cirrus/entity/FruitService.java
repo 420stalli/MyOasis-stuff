@@ -5,7 +5,6 @@ import com.example.cirrus.dto.FruitSellerDto;
 import com.example.cirrus.repository.FruitSellerRepository;
 import com.example.cirrus.repository.FruitsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +19,6 @@ public class FruitService {
 
     private final FruitsRepository fruitsRepository;
     private final FruitSellerRepository fruitSellerRepository;
-
-//    @Autowired
-//    public FruitService(FruitsRepository fruitsRepository) {
-//        this.fruitsRepository = fruitsRepository;
-//    }
 
     public List<FruitDto> getFruits() {
         List<Fruits> fruits = fruitsRepository.findAll();
@@ -92,10 +86,6 @@ public class FruitService {
             fruits.setCountryOfOrigin(countryOfOrigin);
         }
 
-        if (fruitSellerId != null &&
-                !Objects.equals(fruits.getFruitSeller().getFruitSellerId(), fruitSellerId)){
-
-        }
 
 
     }

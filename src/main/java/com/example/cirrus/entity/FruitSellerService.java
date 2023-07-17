@@ -6,7 +6,7 @@ import com.example.cirrus.dto.FruitSellerDto;
 import com.example.cirrus.repository.FruitSellerRepository;
 import com.example.cirrus.repository.FruitsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +21,6 @@ public class FruitSellerService {
 
     private final FruitSellerRepository fruitSellerRepository;
     private final FruitsRepository fruitsRepository;
-
-//    @Autowired
-//    public FruitSellerService(FruitSellerRepository fruitSellerRepository) {
-//        this.fruitSellerRepository = fruitSellerRepository;
-//    }
 
     public List<FruitSellerDto> getFruitSeller() {
         List<FruitSeller> fruitSellers = fruitSellerRepository.findAll();

@@ -1,7 +1,6 @@
 package com.example.cirrus.entity;
 
 
-import com.example.cirrus.dto.FruitDto;
 import com.example.cirrus.dto.FruitSellerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
