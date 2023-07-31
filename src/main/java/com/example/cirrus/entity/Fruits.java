@@ -48,7 +48,7 @@ public class Fruits implements Serializable {
 
 
 
-    @JoinColumn(name = "fruit_seller", referencedColumnName = "fruit_seller_id")
+    @JoinColumn(name = "fruit_seller", referencedColumnName = "fruitSellerId")
     @ManyToOne(fetch = LAZY)
     private FruitSeller fruitSeller;
 
