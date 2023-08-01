@@ -14,5 +14,7 @@ public interface FruitsRepository extends JpaRepository<Fruits, Long> {
 
     Optional<Fruits> findFruitsByName(String name);
 
+    List<Fruits> findFruitsByCountryOfOrigin(String countryOfOrigin);
+
     List<Fruits> findFruitsByFruitSeller(FruitSeller seller);
 }

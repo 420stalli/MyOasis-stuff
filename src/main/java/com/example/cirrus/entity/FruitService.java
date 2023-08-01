@@ -35,6 +35,61 @@ public class FruitService {
        return dtos;
     }
 
+    public List<FruitDto> getFruitsByCountry(String countryOfOrigin) {
+//        List<Fruits> fruits = fruitsRepository.findFruitsByCountryOfOrigin(countryOfOrigin);
+        List<Fruits> fruits = fruitsRepository.findAll();
+
+        List<FruitDto> dtos = new ArrayList<>();
+
+        for (Fruits fruit:fruits) {
+            if (fruit.getCountryOfOrigin().equals(countryOfOrigin)) {
+                FruitDto dto = new FruitDto();
+                dto.setName(fruit.getName());
+                dto.setPrice(fruit.getPrice());
+                dto.setCountryOfOrigin(fruit.getCountryOfOrigin());
+                dtos.add(dto);
+            }
+
+        }return dtos;
+    }
+
+    public List<FruitDto> getFruitsLessThan(Float price) {
+//        List<Fruits> fruits = fruitsRepository.findFruitsByCountryOfOrigin(countryOfOrigin);
+        List<Fruits> fruits = fruitsRepository.findAll();
+
+        List<FruitDto> dtos = new ArrayList<>();
+
+        for (Fruits fruit : fruits) {
+            if (fruit.getPrice() <= price) {
+                FruitDto dto = new FruitDto();
+                dto.setName(fruit.getName());
+                dto.setPrice(fruit.getPrice());
+                dto.setCountryOfOrigin(fruit.getCountryOfOrigin());
+                dtos.add(dto);
+            }
+
+        }
+        return dtos;
+    }
+
+    public List<FruitDto> getFruitsMoreThan(Float price) {
+//        List<Fruits> fruits = fruitsRepository.findFruitsByCountryOfOrigin(countryOfOrigin);
+        List<Fruits> fruits = fruitsRepository.findAll();
+
+        List<FruitDto> dtos = new ArrayList<>();
+
+        for (Fruits fruit : fruits) {
+            if (fruit.getPrice() >= price) {
+                FruitDto dto = new FruitDto();
+                dto.setName(fruit.getName());
+                dto.setPrice(fruit.getPrice());
+                dto.setCountryOfOrigin(fruit.getCountryOfOrigin());
+                dtos.add(dto);
+            }
+
+        }return dtos;
+    }
+
     @Transactional
     public String addNewFruit(FruitDto dto) {
         Optional<Fruits> fruitsOptional = fruitsRepository.

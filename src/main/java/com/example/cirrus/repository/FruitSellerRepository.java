@@ -16,6 +16,7 @@ public interface FruitSellerRepository extends JpaRepository<FruitSeller,Long> {
     Optional<FruitSeller> findFruitSellerByLastName(String lastName);
 
 
+
     @Transactional
     void deleteById(@NonNull Long fruitSellerId);
 }

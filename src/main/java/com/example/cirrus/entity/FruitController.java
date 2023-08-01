@@ -34,6 +34,22 @@ public class FruitController{
             return fruitService.getFruitSellerAndFruits(id);
         }
 
+        @GetMapping("/get-fruits-by-country")
+        public List<FruitDto> getFruitByCountry(@RequestParam String countryOfOrigin){
+            return fruitService.getFruitsByCountry(countryOfOrigin);
+        }
+
+        @GetMapping("/get-cheaper-fruits")
+        public List<FruitDto> getCheapFruit(@RequestParam Float price){
+            return fruitService.getFruitsLessThan(price);
+        }
+
+        @GetMapping("/get-expensive-fruits")
+        public List<FruitDto> getExpensiveFruit(@RequestParam Float price){
+            return fruitService.getFruitsMoreThan(price);
+        }
+
+
 
         @PostMapping("/add-fruits")
         public ResponseEntity<?> registerNewFruits(@RequestBody FruitDto dto){
