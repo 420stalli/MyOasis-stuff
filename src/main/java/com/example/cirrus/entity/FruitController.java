@@ -2,32 +2,48 @@ package com.example.cirrus.entity;
 
 import com.example.cirrus.dto.FruitDto;
 import com.example.cirrus.dto.FruitSellerDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.cirrus.repository.FruitsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
 @RequestMapping(path="api/v1/fruits")
-
+@RequiredArgsConstructor
 public class FruitController{
 
 
         private final FruitService fruitService;
-
-        @Autowired
-        public FruitController(FruitService fruitService) {
-            this.fruitService = fruitService;
-        }
+        private final FruitsRepository fruitsRepository;
 
 
         @GetMapping("/get-fruits")
         public List<FruitDto> getFruits(){
             return fruitService.getFruits();
         }
+
+//        @GetMapping("/search")
+//        public List<FruitDto> getDtos(
+//                @RequestParam String name,
+//                @RequestParam Float price,
+//                @RequestParam String country
+//        ) {
+//            List<Fruits> fruits =fruitsRepository.findAll();
+//            if (fruits.contains(name)){
+//                FruitDto fruitDto=new FruitDto();
+//
+//            }
+//
+//
+//            return null;
+//        }
+
+
 
         @GetMapping("/get-fruit-seller-and-fruits")
         public FruitSellerDto getFruitSellerAndFruits(@RequestParam Long id){

@@ -4,6 +4,7 @@ import com.example.cirrus.entity.FruitSeller;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
@@ -11,7 +12,6 @@ import java.util.Optional;
 public interface FruitSellerRepository extends JpaRepository<FruitSeller,Long> {
 
     Optional<FruitSeller> findByFruitSellerId(Long fruitSellerId);
-
     Optional<FruitSeller> findFruitSellerByFirstName(String firstName);
     Optional<FruitSeller> findFruitSellerByLastName(String lastName);
 

@@ -38,6 +38,85 @@ public class FruitSellerService {
     }
 
 
+    public FruitSellerDto getFruitSellerByFirstName(String firstName) {
+        List<FruitSeller> fruitSellers = fruitSellerRepository.findAll();
+
+        FruitSellerDto dto = new FruitSellerDto();
+        for (FruitSeller fruitSeller : fruitSellers) {
+            if (fruitSeller.getFirstName().equals(firstName)) {
+                dto.setFirstName(fruitSeller.getFirstName());
+                dto.setLastName(fruitSeller.getLastName());
+                dto.setPhoneNumber(fruitSeller.getPhoneNumber());
+
+            }
+            else{
+                throw new IllegalStateException("fruit seller with the first name "+ firstName+"does not exist");
+            }
+        }
+        return dto;
+    }
+
+    public FruitSellerDto getFruitSellerByLastName(String lastName) {
+        List<FruitSeller> fruitSellers = fruitSellerRepository.findAll();
+
+        FruitSellerDto dto = new FruitSellerDto();
+        for (FruitSeller fruitSeller : fruitSellers) {
+            if (fruitSeller.getLastName().equals(lastName)) {
+                dto.setFirstName(fruitSeller.getFirstName());
+                dto.setLastName(fruitSeller.getLastName());
+                dto.setPhoneNumber(fruitSeller.getPhoneNumber());
+
+            }
+            else{
+                throw new IllegalStateException("fruit seller with the last name "+ lastName+"does not exist");
+            }
+
+        }return dto;
+    }
+
+    public FruitSellerDto getFruitSellerByPhoneNumber(Integer phoneNumber) {
+        List<FruitSeller> fruitSellers = fruitSellerRepository.findAll();
+
+        FruitSellerDto dto = new FruitSellerDto();
+        for (FruitSeller fruitSeller : fruitSellers) {
+            if (fruitSeller.getPhoneNumber()==(phoneNumber)) {
+                dto.setFirstName(fruitSeller.getFirstName());
+                dto.setLastName(fruitSeller.getLastName());
+                dto.setPhoneNumber(fruitSeller.getPhoneNumber());
+
+            }
+            else{
+                throw new IllegalStateException("fruit seller with the number "+ phoneNumber+" does not exist");
+            }
+
+        }return dto;
+    }
+
+
+
+//    public FruitSellerDto getFruitSellerByFruit() {
+//        List<FruitSeller> fruitSellers = fruitSellerRepository.findAll();
+//
+//        FruitSellerDto dto = new FruitSellerDto();
+//
+//        for (FruitSeller fruitSeller:fruitSellers){
+//            for(Fruits fruits:fruitSeller.)
+//
+//            FruitSellerDto dto = new FruitSellerDto();
+//            dto.setFirstName(fruitSeller.getFirstName());
+//            dto.setLastName(fruitSeller.getLastName());
+//            dto.setPhoneNumber(fruitSeller.getPhoneNumber());
+//            dtos.add(dto);
+//        }
+//        return dtos;
+//    }
+
+
+
+
+
+
+
     public String addNewFruitSeller(FruitSellerDto dto) {
         Optional<FruitSeller> fruitSellerOptional = fruitSellerRepository.
                 findFruitSellerByFirstName(dto.getFirstName());

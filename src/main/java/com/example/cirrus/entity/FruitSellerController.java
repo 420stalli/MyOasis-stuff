@@ -25,6 +25,21 @@ public class FruitSellerController {
         return fruitSellerService.getFruitSeller();
     }
 
+    @GetMapping("/get-fruit-seller-by-first-name")
+    public FruitSellerDto getFruitSellerByFirstName(String firstName){
+        return fruitSellerService.getFruitSellerByFirstName(firstName);
+    }
+
+    @GetMapping("/get-fruit-seller-by-last-name")
+    public FruitSellerDto getFruitSellerByLastName(String lastName){
+        return fruitSellerService.getFruitSellerByLastName(lastName);
+    }
+
+    @GetMapping("/get-fruit-seller-by-phone-number")
+    public FruitSellerDto getFruitSellerByPhoneNumber(Integer phoneNumber){
+        return fruitSellerService.getFruitSellerByPhoneNumber(phoneNumber);
+    }
+
 
 
     @PostMapping("add-fruit-seller")

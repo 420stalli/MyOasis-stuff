@@ -36,7 +36,6 @@ public class FruitService {
     }
 
     public List<FruitDto> getFruitsByCountry(String countryOfOrigin) {
-//        List<Fruits> fruits = fruitsRepository.findFruitsByCountryOfOrigin(countryOfOrigin);
         List<Fruits> fruits = fruitsRepository.findAll();
 
         List<FruitDto> dtos = new ArrayList<>();
@@ -54,7 +53,6 @@ public class FruitService {
     }
 
     public List<FruitDto> getFruitsLessThan(Float price) {
-//        List<Fruits> fruits = fruitsRepository.findFruitsByCountryOfOrigin(countryOfOrigin);
         List<Fruits> fruits = fruitsRepository.findAll();
 
         List<FruitDto> dtos = new ArrayList<>();
@@ -73,7 +71,6 @@ public class FruitService {
     }
 
     public List<FruitDto> getFruitsMoreThan(Float price) {
-//        List<Fruits> fruits = fruitsRepository.findFruitsByCountryOfOrigin(countryOfOrigin);
         List<Fruits> fruits = fruitsRepository.findAll();
 
         List<FruitDto> dtos = new ArrayList<>();
@@ -92,11 +89,6 @@ public class FruitService {
 
     @Transactional
     public String addNewFruit(FruitDto dto) {
-        Optional<Fruits> fruitsOptional = fruitsRepository.
-                findFruitsByName(dto.getName());
-        if (fruitsOptional.isPresent()) {
-            return "fruit already added";
-        }
         Fruits fruits = new Fruits();
         fruits.setPrice(dto.getPrice());
         fruits.setName(dto.getName());
