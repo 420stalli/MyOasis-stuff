@@ -2,6 +2,7 @@ package com.example.cirrus.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -49,6 +50,7 @@ public class Fruits implements Serializable {
 
 
     @JoinColumn(name = "fruit_seller", referencedColumnName = "fruitSellerId")
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     private FruitSeller fruitSeller;
 

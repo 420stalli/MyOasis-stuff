@@ -4,28 +4,38 @@ import com.example.cirrus.dto.FruitDto;
 import com.example.cirrus.dto.FruitSellerDto;
 import com.example.cirrus.repository.FruitSellerRepository;
 import com.example.cirrus.repository.FruitsRepository;
+import com.querydsl.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class FruitService {
 
     private final FruitsRepository fruitsRepository;
     private final FruitSellerRepository fruitSellerRepository;
+    private final EntityManager entityManager;
 
     public List<FruitDto> getFruits() {
-        List<Fruits> fruits = fruitsRepository.findAll();
+        JPAQuery<?> query = new JPAQuery<>(entityManager);
+
+        List<Fruits> fruits1 = query.select(QFruits.fruits).from(QFruits.fruits).fetch();
+        log.info("============================ fruit name : "+fruits1.get(0).getName());
 
         List<FruitDto> dtos = new ArrayList<>();
 
-        for (Fruits fruit:fruits){
+        for (Fruits fruit:fruits1){
             FruitDto dto = new FruitDto();
             dto.setName(fruit.getName());
             dto.setPrice(fruit.getPrice());
@@ -36,53 +46,61 @@ public class FruitService {
     }
 
     public List<FruitDto> getFruitsByCountry(String countryOfOrigin) {
-        List<Fruits> fruits = fruitsRepository.findAll();
+        JPAQuery<?> query = new JPAQuery<>(entityManager);
+
+        List<Fruits> fruits1 = query.select(QFruits.fruits).from(QFruits.fruits).where(QFruits.fruits.countryOfOrigin.eq(countryOfOrigin)).fetch();
 
         List<FruitDto> dtos = new ArrayList<>();
 
-        for (Fruits fruit:fruits) {
-            if (fruit.getCountryOfOrigin().equals(countryOfOrigin)) {
+        for (Fruits fruit:fruits1) {
                 FruitDto dto = new FruitDto();
                 dto.setName(fruit.getName());
                 dto.setPrice(fruit.getPrice());
                 dto.setCountryOfOrigin(fruit.getCountryOfOrigin());
                 dtos.add(dto);
             }
+        return dtos;
+        }
 
-        }return dtos;
-    }
 
-    public List<FruitDto> getFruitsLessThan(Float price) {
-        List<Fruits> fruits = fruitsRepository.findAll();
+    public Fruits getFruitsLessThan(Float price) {
+
+        JPAQuery<?> query = new JPAQuery<>(entityManager);
+        List<Fruits> fruits1 = new ArrayList<>();
+        fruits1 = query.select(QFruits.fruits).from(QFruits.fruits).where(QFruits.fruits.price.between(0,price)).orderBy(QFruits.fruits.id.desc()).fetch();
+
+        log.info(fruits1.get(0).getName());
+//
+//        if (fruits1.isEmpty()){
+//            return new ArrayList<>();
+//        }
+
 
         List<FruitDto> dtos = new ArrayList<>();
 
-        for (Fruits fruit : fruits) {
-            if (fruit.getPrice() <= price) {
+        for (Fruits fruit : fruits1) {
                 FruitDto dto = new FruitDto();
                 dto.setName(fruit.getName());
                 dto.setPrice(fruit.getPrice());
                 dto.setCountryOfOrigin(fruit.getCountryOfOrigin());
                 dtos.add(dto);
-            }
 
         }
-        return dtos;
+        return fruits1.get(0);
     }
 
     public List<FruitDto> getFruitsMoreThan(Float price) {
-        List<Fruits> fruits = fruitsRepository.findAll();
+        JPAQuery<?> query = new JPAQuery<>(entityManager);
 
+        List<Fruits> fruits1 = query.select(QFruits.fruits).from(QFruits.fruits).where(QFruits.fruits.price.between(price,1000)).fetch();
         List<FruitDto> dtos = new ArrayList<>();
 
-        for (Fruits fruit : fruits) {
-            if (fruit.getPrice() >= price) {
+        for (Fruits fruit : fruits1) {
                 FruitDto dto = new FruitDto();
                 dto.setName(fruit.getName());
                 dto.setPrice(fruit.getPrice());
                 dto.setCountryOfOrigin(fruit.getCountryOfOrigin());
                 dtos.add(dto);
-            }
 
         }return dtos;
     }
