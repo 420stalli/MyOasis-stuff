@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +21,6 @@ public class FruitController{
 
 
         private final FruitService fruitService;
-        private final FruitsRepository fruitsRepository;
         private final EntityManager entityManager;
 
 
