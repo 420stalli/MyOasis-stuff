@@ -30,8 +30,7 @@ public class FruitController{
         public List<Fruits> getFruitsT(
                 @RequestParam Optional<String> name,
                 @RequestParam Optional<Float> price,
-                @RequestParam Optional<String> countryOfOrigin,
-                @RequestParam Optional<String> priceLevel
+                @RequestParam Optional<String> countryOfOrigin
         ) {
 
             JPAQuery<?> query = new JPAQuery<>(entityManager);
@@ -47,10 +46,18 @@ public class FruitController{
             if(countryOfOrigin.isPresent()){
                 fruitsJPAQuery.where(QFruits.fruits.countryOfOrigin.equalsIgnoreCase(countryOfOrigin.get()));
             }
-            if(priceLevel.equals("expensive")){
+            return fruitsJPAQuery.fetch();
+        }
+        @GetMapping("/search-ranges")
+        public List<Fruits> getFruitsT(@RequestParam Optional<String> priceLevel,
+                                       @RequestParam Optional<Float> price){
+            JPAQuery<?> query = new JPAQuery<>(entityManager);
+            JPAQuery<Fruits> fruitsJPAQuery = (JPAQuery<Fruits>) query.from(QFruits.fruits);
+
+            if(priceLevel.get().equals("expensive")){
                 fruitsJPAQuery.where(QFruits.fruits.price.between(price.get(), 1000));
             }
-            if(priceLevel.equals("cheaper")) {
+            if(priceLevel.get().equals("cheaper")) {
                 fruitsJPAQuery.where(QFruits.fruits.price.between(0, price.get()));
             }
             return fruitsJPAQuery.fetch();
@@ -60,17 +67,6 @@ public class FruitController{
         @GetMapping("/get-fruit-seller-and-fruits")
         public FruitSellerDto getFruitSellerAndFruits(@RequestParam Long id){
             return fruitService.getFruitSellerAndFruits(id);
-        }
-
-
-        @GetMapping("/get-cheaper-fruits")
-        public Fruits getCheapFruit(@RequestParam Float price){
-            return fruitService.getFruitsLessThan(price);
-        }
-
-        @GetMapping("/get-expensive-fruits")
-        public List<FruitDto> getExpensiveFruit(@RequestParam Float price){
-            return fruitService.getFruitsMoreThan(price);
         }
 
 
@@ -101,14 +97,3 @@ public class FruitController{
                 return ResponseEntity.ok(fruitService.addSellerId(sellerId, fruitId));
             }
 }
-
-//        @GetMapping("/get-fruits")
-//        public List<FruitDto> getFruits(){
-//           return fruitService.getFruits();
-//       }
-
-
-//        @GetMapping("/get-fruits-by-country")
-//        public List<FruitDto> getFruitByCountry(@RequestParam String countryOfOrigin){
-//            return fruitService.getFruitsByCountry(countryOfOrigin);
-//        }
