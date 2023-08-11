@@ -2,7 +2,6 @@ package com.example.cirrus.entity;
 
 import com.example.cirrus.dto.FruitDto;
 import com.example.cirrus.dto.FruitSellerDto;
-import com.example.cirrus.repository.FruitsRepository;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
