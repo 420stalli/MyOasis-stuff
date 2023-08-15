@@ -89,21 +89,7 @@ public class FruitService {
         return fruits1.get(0);
     }
 
-    public List<FruitDto> getFruitsMoreThan(Float price) {
-        JPAQuery<?> query = new JPAQuery<>(entityManager);
 
-        List<Fruits> fruits1 = query.select(QFruits.fruits).from(QFruits.fruits).where(QFruits.fruits.price.between(price,1000)).fetch();
-        List<FruitDto> dtos = new ArrayList<>();
-
-        for (Fruits fruit : fruits1) {
-                FruitDto dto = new FruitDto();
-                dto.setName(fruit.getName());
-                dto.setPrice(fruit.getPrice());
-                dto.setCountryOfOrigin(fruit.getCountryOfOrigin());
-                dtos.add(dto);
-
-        }return dtos;
-    }
 
     @Transactional
     public String addNewFruit(FruitDto dto) {
