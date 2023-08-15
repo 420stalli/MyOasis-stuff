@@ -2,42 +2,47 @@ package com.example.cirrus.entity;
 
 
 import com.example.cirrus.dto.FruitSellerDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.querydsl.jpa.impl.JPAQuery;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import javax.persistence.EntityManager;
 
 @RestController
 @RequestMapping(path="api/v1/fruit-seller")
+@RequiredArgsConstructor
 
 public class FruitSellerController {
 
     private final FruitSellerService fruitSellerService;
-    @Autowired
-    public FruitSellerController(FruitSellerService fruitSellerService) {
-        this.fruitSellerService = fruitSellerService;
-    }
+    private final EntityManager entityManager;
 
 
-    @GetMapping("/get-fruit-seller")
-    public List<FruitSellerDto> getFruitSeller(){
-        return fruitSellerService.getFruitSeller();
-    }
 
-    @GetMapping("/get-fruit-seller-by-first-name")
-    public FruitSellerDto getFruitSellerByFirstName(String firstName){
-        return fruitSellerService.getFruitSellerByFirstName(firstName);
-    }
+    @GetMapping("/search")
+    public List<FruitSeller> getFruitSeller(
+            @RequestParam Optional<String> firstName,
+            @RequestParam Optional<String> lastName,
+            @RequestParam Optional<Integer> phoneNumber
+    ){
+        JPAQuery<?> query = new JPAQuery<>(entityManager);
 
-    @GetMapping("/get-fruit-seller-by-last-name")
-    public FruitSellerDto getFruitSellerByLastName(String lastName){
-        return fruitSellerService.getFruitSellerByLastName(lastName);
-    }
+        JPAQuery<FruitSeller> fruitSellerJPAQuery = (JPAQuery<FruitSeller>) query.from(QFruitSeller.fruitSeller);
 
-    @GetMapping("/get-fruit-seller-by-phone-number")
-    public FruitSellerDto getFruitSellerByPhoneNumber(Integer phoneNumber){
-        return fruitSellerService.getFruitSellerByPhoneNumber(phoneNumber);
+        if(firstName.isPresent()){
+            fruitSellerJPAQuery.where(QFruitSeller.fruitSeller.firstName.equalsIgnoreCase(firstName.get()));
+        }
+        if(lastName.isPresent()){
+            fruitSellerJPAQuery.where(QFruitSeller.fruitSeller.lastName.equalsIgnoreCase(lastName.get()));
+        }
+        if(phoneNumber.isPresent()){
+            fruitSellerJPAQuery.where(QFruitSeller.fruitSeller.phoneNumber.eq(phoneNumber.get()));
+        }
+        return fruitSellerJPAQuery.fetch();
     }
 
 

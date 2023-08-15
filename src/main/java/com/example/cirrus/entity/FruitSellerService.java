@@ -50,7 +50,7 @@ public class FruitSellerService {
 
             }
             else{
-                throw new IllegalStateException("fruit seller with the first name "+ firstName+"does not exist");
+                throw new IllegalStateException("fruit seller with the first name "+ firstName+" does not exist");
             }
         }
         return dto;
@@ -68,7 +68,7 @@ public class FruitSellerService {
 
             }
             else{
-                throw new IllegalStateException("fruit seller with the last name "+ lastName+"does not exist");
+                throw new IllegalStateException("fruit seller with the last name "+ lastName+" does not exist");
             }
 
         }return dto;
